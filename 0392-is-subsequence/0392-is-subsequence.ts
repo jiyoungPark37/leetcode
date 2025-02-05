@@ -1,12 +1,9 @@
-function isSubsequence(s:string, t: string): boolean {
+function isSubsequence(s: string, t: string): boolean {
     if(s.length >= t.length) return s === t;
 
     let idx = 0;
     for(let i = 0; i < t.length; i++) {
-        if(t[i] === s[idx]) {
-            idx+=1;
-            if(idx === s.length) return true;
-        }
+        if(s[idx] === t[i]) idx++;
     }
     return idx === s.length;
 };

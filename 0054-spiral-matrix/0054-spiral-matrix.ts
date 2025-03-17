@@ -1,30 +1,28 @@
-const VISITED = 9999999;
-
+const hasVisited = -999;
 function spiralOrder(matrix: number[][]): number[] {
-    const row = matrix[0].length;
-    const col = matrix.length;
-    const direction = [[0,1],[1,0],[0,-1], [-1,0]];
+    const maxX = matrix.length;
+    const maxY = matrix[0].length;
+    const answer = [matrix[0][0]];
+    matrix[0][0] = hasVisited;
 
+    let count = 1;
     let x = 0;
     let y = 0;
-    let dirIdx = 0;
-    let count = 1;
-    const answer = [matrix[x][y]];
-    matrix[x][y] = VISITED;
+    let index = 0;
+    const dir = [[0,1],[1,0],[0,-1], [-1, 0]];
 
-    while(count < row * col) {
-        const nx = direction[dirIdx][0] + x;
-        const ny = direction[dirIdx][1] + y;
-        if(nx < 0 || ny < 0 || nx >= col || ny >= row || matrix[nx][ny] === VISITED) {
-            dirIdx = (dirIdx + 1) % 4;
+    while(count < maxX * maxY) {
+        const nx = x + dir[index][0];
+        const ny = y + dir[index][1];
+        if(nx >= maxX || ny >= maxY || nx < 0 || ny < 0 || matrix[nx][ny] === hasVisited) {
+            index = (index+1)%4;
             continue;
         }
-        count+=1;
         answer.push(matrix[nx][ny]);
-        matrix[nx][ny] = VISITED;
+        matrix[x][y] = hasVisited;
         x = nx;
         y = ny;
+        count+=1;
     }
-
     return answer;
 };

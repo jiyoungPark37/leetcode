@@ -13,11 +13,12 @@
  */
 
 function levelOrder(root: TreeNode | null): number[][] {
-    if(root == null) return [];
+    if(!root) return [];
 
+    const answer = [];
     const queue = [root];
-    let answer = [];
-    while(queue.length) {
+
+    while(queue.length > 0) {
         const len = queue.length;
         let result = [];
         for(let i = 0; i < len; i++) {
@@ -25,7 +26,7 @@ function levelOrder(root: TreeNode | null): number[][] {
             result.push(first.val);
             if(first.left) queue.push(first.left);
             if(first.right) queue.push(first.right);
-        };
+        }
         answer.push(result);
     }
     return answer;

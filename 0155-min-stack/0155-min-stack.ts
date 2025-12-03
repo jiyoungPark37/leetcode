@@ -16,21 +16,21 @@ class MinStack {
     }
 
     pop(): void {
-        if(this.stack.length === 0) return;
+        if(this.stack.length <= 0) return;
         const popped = this.stack.pop();
 
-        if(this.minStack.length > 0 && this.minStack[this.minStack.length - 1] === popped) {
+        if(this.minStack.length > 0 && popped === this.minStack[this.minStack.length - 1]) {
             this.minStack.pop();
         }
     }
 
     top(): number {
-        if(this.stack.length <= 0) return;
+        if(this.stack.length === 0) return;
         return this.stack[this.stack.length - 1];
     }
 
     getMin(): number {
-        if(this.minStack.length <= 0) return;
+        if(this.minStack.length === 0) return;
         return this.minStack[this.minStack.length - 1];
     }
 }

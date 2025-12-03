@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
+
+function levelOrder(root: TreeNode | null): number[][] {
+    if(root == null) return [];
+
+    const queue = [root];
+    let answer = [];
+    while(queue.length) {
+        const len = queue.length;
+        let result = [];
+        for(let i = 0; i < len; i++) {
+            const first = queue.shift();
+            result.push(first.val);
+            if(first.left) queue.push(first.left);
+            if(first.right) queue.push(first.right);
+        };
+        answer.push(result);
+    }
+    return answer;
+};

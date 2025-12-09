@@ -1,13 +1,12 @@
 function twoSum(nums: number[], target: number): number[] {
     const map = new Map();
-
+    
     for(let i = 0; i < nums.length; i++) {
-        const num = nums[i];
-        const minusNum = target - num;
-        if(map.has(minusNum)) {
-            return [map.get(minusNum), i];
+        const diff = target - nums[i];
+        if(map.has(diff)) {
+            return [i, map.get(diff)]
         } else {
-            map.set(num, i);
+            map.set(nums[i], i);
         }
     }
 };

@@ -17,17 +17,16 @@ function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode
     let temp = answer;
 
     while(list1 && list2) {
-        if(list1.val >= list2.val) {
-            temp.next = list2;
-            list2 = list2.next;
-        } else {
+        if(list1.val <= list2.val) {
             temp.next = list1;
             list1 = list1.next;
+        } else {
+            temp.next = list2;
+            list2 = list2.next;
         }
         temp = temp.next;
     }
     if(list1) temp.next = list1;
     if(list2) temp.next = list2;
-
     return answer.next;
 };

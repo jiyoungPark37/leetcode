@@ -13,18 +13,16 @@
  */
 
 function kthSmallest(root: TreeNode | null, k: number): number {
-    if(root === null) return 0;
-    
-    const arr = [];
-    
+    if(root === null) return -1;
+    const res = [];
+
     const traverse = (tree:TreeNode | null) => {
         if(tree === null) return;
 
-        arr.push(tree.val);
         if(tree?.left) traverse(tree.left);
+        res.push(tree.val);
         if(tree?.right) traverse(tree.right);
     }
     traverse(root);
-    arr.sort((a,b) => a - b);
-    return arr[k-1] ?? 0;
+    return res[k - 1];
 };

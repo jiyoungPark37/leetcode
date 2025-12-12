@@ -14,8 +14,9 @@
 
 function invertTree(root: TreeNode | null): TreeNode | null {
     if(root === null) return root;
-    let prevLeft = root.left;
-    let prevRight = root.right;
+
+    const prevLeft = root?.left;
+    const prevRight = root?.right;
     root.left = invertTree(prevRight);
     root.right = invertTree(prevLeft);
     return root;

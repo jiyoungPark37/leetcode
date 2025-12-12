@@ -1,3 +1,5 @@
 function containsDuplicate(nums: number[]): boolean {
-    return Array.from(new Set(nums)).length !== nums.length;
+    const set = new Set();
+    nums.forEach(ele => set.add(ele));
+    return set.size !== nums.length;
 };

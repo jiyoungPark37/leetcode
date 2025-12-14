@@ -20,6 +20,7 @@ const INTEGER_TO_ROMAN = {
 }
 const convertNumToRoman = (num: number, digit: number): string => {
     const obj = INTEGER_TO_ROMAN[digit];
+    if(num === 0) return '';
     if(num >= 1 && num <= 3) return `${obj[1].repeat(num)}`
     if(num === 4) return `${obj[1]}${obj[5]}`;
     if(num === 5) return obj[num];
@@ -33,10 +34,8 @@ function intToRoman(num: number): string {
 
     for(let i = 0; i < len; i++) {
         const digit = len - i;
-        if(numToString[i] !== '0') {
-            const currentNum = convertNumToRoman(Number(numToString[i]), digit);
-            answer[i] = currentNum;
-        }
+        const currentNum = convertNumToRoman(Number(numToString[i]), digit);
+        answer[i] = currentNum;
     }
     return answer.join('');
 };

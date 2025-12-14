@@ -1,7 +1,10 @@
 function maxProfit(prices: number[]): number {
-    let diff = 0;
-    for(let i = 0; i < prices.length; i++) {
-        if(prices[i] > prices[i-1]) diff+=(prices[i] - prices[i-1]);
+    const arr = Array(prices.length).fill(0);
+    let minPrice = prices[0];
+    for(let i = 1; i < prices.length; i++) {
+        const price = prices[i];
+        arr[i] = arr[i-1] + Math.max(price - minPrice, 0);
+        minPrice = price;
     }
-    return diff;
+    return arr[arr.length - 1];
 };

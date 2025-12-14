@@ -15,9 +15,16 @@
 function maxDepth(root: TreeNode | null): number {
     if(root === null) return 0;
 
-    let count = 1;
-    const left = maxDepth(root.left);
-    const right = maxDepth(root.right);
-    count += Math.max(left, right);
-    return count;
+    let answer = 0;
+    const queue = [root];
+    while(queue.length > 0) {
+        const len = queue.length;
+        for(let i = 0; i< len; i++) {
+            const shifted = queue.shift();
+            if(shifted?.left)queue.push(shifted.left);
+            if(shifted?.right)queue.push(shifted.right);
+        }
+        answer+=1;
+    }
+    return answer;
 };

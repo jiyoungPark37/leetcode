@@ -1,9 +1,9 @@
 function groupAnagrams(strs: string[]): string[][] {
     const map = new Map();
 
-    strs.forEach(str => {
-        const sortedStr = str.split('').sort((a,b) => a.localeCompare(b)).join('');
-        map.set(sortedStr, [...(map.get(sortedStr) ?? []), str]);
-    });
+    for(const str of strs) {
+        const sorted = str.split('').sort().join('');
+        map.set(sorted, [...(map.get(sorted) ?? []), str]);
+    }
     return Array.from(map.values());
 };

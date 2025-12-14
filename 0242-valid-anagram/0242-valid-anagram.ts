@@ -1,5 +1,5 @@
 function isAnagram(s: string, t: string): boolean {
-    const newS = s.split('').sort((a,b) => a.localeCompare(b)).join('')
-    const newT = t.split('').sort((a,b) => a.localeCompare(b)).join('')
-    return newS === newT;
+    const convert = str => str.trim().split('').sort().join('');
+    console.log(convert(s), convert(t),'?')
+    return convert(s) === convert(t);
 };

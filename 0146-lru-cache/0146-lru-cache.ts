@@ -1,6 +1,6 @@
 class LRUCache {
-    private capacity: number;
     private map: Map<number, number>;
+    private capacity:number;
     constructor(capacity: number) {
         this.map = new Map();
         this.capacity = capacity;
@@ -8,16 +8,16 @@ class LRUCache {
 
     get(key: number): number {
         const val = this.map.get(key);
-        if(val == undefined) return -1;
-
+        if(val === undefined) return -1;
         this.map.delete(key);
         this.map.set(key, val);
         return val;
     }
 
     put(key: number, value: number): void {
-        if(this.map.size>=this.capacity && !this.map.has(key)) {
-            this.map.delete(this.map.keys().next().value);
+        if(this.map.size >= this.capacity && !this.map.has(key)) {
+            const recentKey = this.map.keys().next().value;
+            this.map.delete(recentKey);
         }
         this.map.delete(key);
         this.map.set(key, value);

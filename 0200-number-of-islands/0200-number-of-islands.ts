@@ -1,22 +1,24 @@
 function numIslands(grid: string[][]): number {
     let answer = 0;
-    const dir = [[0,1],[1,0], [0,-1],[-1,0]];
+    const gridLen = grid.length;
+    const gridRLen = grid[0].length;
+    const dir = [[0,1],[1,0],[-1,0],[0,-1]];
 
-    const traverse = (x: number, y:number) => {
-        grid[x][y] = '0';
-
-        for(let i = 0; i < 4; i++) {
-            const nx = x + dir[i][0];
-            const ny = y + dir[i][1];
-            if(nx >= 0 && ny >=0 && nx < grid.length && ny < grid[0].length && grid[nx][ny] === '1') {
-                traverse(nx, ny);
+    const dfs = (i:number, j:number) => {
+        grid[i][j] = '0';
+        
+        for(let x = 0; x < 4; x++){
+            const nI = i + dir[x][0]
+            const nY = j + dir[x][1];
+            if(nI < gridLen && nY < gridRLen && nI >= 0 && nY >= 0 && grid[nI][nY] === '1') {
+                dfs(nI, nY);
             }
         }
     }
-    for(let i = 0; i < grid.length; i++) {
-        for(let j = 0; j < grid[0].length; j++) {
+    for(let i = 0; i < gridLen;i++) {
+        for(let j = 0; j < gridRLen; j++) {
             if(grid[i][j] === '1') {
-                traverse(i,j);
+                dfs(i, j);
                 answer+=1;
             }
         }

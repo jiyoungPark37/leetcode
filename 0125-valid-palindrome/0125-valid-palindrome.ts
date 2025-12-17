@@ -1,4 +1,5 @@
 function isPalindrome(s: string): boolean {
-    const str = s.trim().toLowerCase().replace(/[^0-9a-z]+/g, '');
-    return str === str.split('').reverse().join('');
+    const str = s.trim().toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+    const reversed = str.split('').reverse().join('');
+    return str === reversed;
 };

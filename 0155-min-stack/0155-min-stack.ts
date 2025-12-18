@@ -1,6 +1,6 @@
 class MinStack {
-    private stack: number[];
-    private minStack: number[];
+    private stack:number[];
+    private minStack:number[];
     constructor() {
         this.stack = [];
         this.minStack = [];
@@ -8,20 +8,18 @@ class MinStack {
 
     push(val: number): void {
         this.stack.push(val);
-
-        const curMin = this.getMin() ?? Infinity;
-        if(curMin >= val) {
+        const min = this.getMin() ?? Infinity;
+        if(min >= val) {
             this.minStack.push(val);
         }
     }
 
     pop(): void {
         if(this.stack.length === 0) return;
-        const popped = this.stack.pop();
-
-        if(popped === this.getMin()) {
+        const pop = this.stack.pop();
+        if(pop === this.getMin()) {
             this.minStack.pop();
-        }
+        }        
     }
 
     top(): number {
@@ -31,7 +29,7 @@ class MinStack {
 
     getMin(): number {
         if(this.minStack.length === 0) return;
-        return this.minStack[this.minStack.length - 1]; 
+        return this.minStack[this.minStack.length - 1];  
     }
 }
 

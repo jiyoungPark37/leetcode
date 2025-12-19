@@ -14,12 +14,12 @@ function orangesRotting(grid: number[][]): number {
         const len = queue.length;
         for(let i = 0; i < len; i++) {
             const [a,b] = queue.shift();
-            grid[a][b] = -1;
 
             for(let i = 0; i < 4; i++) {
                 const nx = a + dir[i][0];
                 const ny = b + dir[i][1];
                 if(nx>=0 && ny >= 0 &&  nx < n && ny < m && grid[nx][ny] === 1) {
+                    grid[nx][ny] = 2;
                     queue.push([nx, ny]);
                 }
             }

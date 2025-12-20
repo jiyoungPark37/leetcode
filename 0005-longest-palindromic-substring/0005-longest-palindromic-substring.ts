@@ -1,23 +1,22 @@
 function longestPalindrome(s: string): string {
-    let answer = s[0];
-    const len = s.length;
-    for(let i = 0; i < len; i++) {
-        let left = i-1;
-        let right = i+1;
+    let answer = '';
 
-        while(left >= 0 && right < len && s[left] === s[right]) {
-            if(answer.length < right - left + 1) answer = s.slice(left, right + 1);
+    for(let i = 0; i < s.length; i++) {
+        let left = i;
+        let right = i + 1;
+        while(left >= 0 && right < s.length && s[left] === s[right]) {
+            if(answer.length < right - left + 1) answer = s.substring(left, right + 1);
             left--;
             right++;
         }
 
-        left = i-1;
+        left = i;
         right = i;
-        while(left >= 0 && right < len && s[left] === s[right]) {
-            if(answer.length < right - left + 1) answer = s.slice(left, right + 1);
+        while(left >= 0 && right < s.length && s[left] === s[right]) {
+            if(answer.length < right - left + 1) answer = s.substring(left, right + 1);
             left--;
             right++;
         }
     }
-    return answer
+    return answer;
 };

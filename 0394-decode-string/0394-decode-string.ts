@@ -1,23 +1,19 @@
 function decodeString(s: string): string {
     const stack = [];
-
-    for(const ch of s) {
-        if(ch === ']') {
-            let letter = '';
+    for(const char of s) {
+        if(char === ']') {
+            let str = '';
             while(stack.length > 0 && stack[stack.length - 1] !== '[') {
-                const popped = stack.pop();
-                letter = `${popped}${letter}`;
+                str = `${stack.pop()}${str}`;
             }
-            stack.pop() // '['
+            stack.pop(); // '[' case
             let num = '';
             while(stack.length > 0 && !isNaN(stack[stack.length - 1])) {
-                const popped = stack.pop();
-                num = `${popped}${num}`;
+                num = `${stack.pop()}${num}`;
+                console.log(num, 'num checking')
             }
-            const res = letter.repeat(Number(num));
-            stack.push(res);
-        } else stack.push(ch);
+            stack.push(str.repeat(Number(num)));
+        } else stack.push(char);
     }
-
     return stack.join('');
 };

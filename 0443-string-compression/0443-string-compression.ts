@@ -1,22 +1,19 @@
 function compress(chars: string[]): number {
-    let str = [];
     let count = 1;
+    let answer = '';
     for(let i = 0; i < chars.length; i++) {
-        const ch = chars[i];
+        const cur = chars[i];
         const next = chars[i+1];
-        if(ch === next) {
-            count++
+        if(cur === next) {
+            count++;
         } else {
-            if(count === 1) str.push(ch);
-            else str.push(`${ch}${count}`);
+            if(count > 1) answer+=`${cur}${count}`;
+            else answer+=cur;
             count = 1;
         }
     }
-    const total = str.join('').split('');
-
-    for(let i = 0; i < total.length; i++) {
-        if(total[i] === chars[i]) continue;
-        chars[i] = total[i];
+    for(let i = 0 ; i < answer.length; i++) {
+        chars[i] = answer[i];
     }
-    return total.length;
-};
+    return answer.length;
+}

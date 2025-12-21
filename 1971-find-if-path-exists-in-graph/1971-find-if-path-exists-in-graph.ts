@@ -1,22 +1,37 @@
-function validPath(n: number, edges: number[][], source: number, destination: number): boolean {
-    const arr = Array.from({length: n}, (_, idx) => idx);
+class UnionFind {
+    parent: number[];
+    rank: number[];
+    constructor(size: number){
+        this.parent = Array.from({length: size}, (_, i) => i);
+        this.rank = Array(size).fill(1);
+    }
 
-    const find = (idx) => {
-        if(arr[idx] === idx) return idx;
-        return arr[idx] = find(arr[idx]);
-    }
-    const union = (a, b) => {
-        const rootA = find(a);
-        const rootB = find(b);
-        if(rootA !== rootB) {
-            arr[rootA] = rootB;
-            return true;
+    find(node: number) {
+        if(this.parent[node] !== node){
+            this.parent[node] = this.find(this.parent[node]);
         }
-        return false;
+        return this.parent[node];
     }
-    for(const [a,b] of edges) {
-        union(a,b);
+
+    union(node1: number, node2: number) {
+        const root1 =  this.find(node1);
+        const root2 = this.find(node2);
+
+        if(this.rank[root1] > this.rank[root2]) {
+            this.parent[root2] = root1;
+        } else if(this.rank[root1] < this.rank[root2]) {
+            this.parent[root1] = root2;
+        } else {
+            this.parent[root2] = root1;
+            this.rank[root1]++;
+        }
     }
-    if(find(arr[destination]) !== find(arr[source])) return false;
-    return true;
+}
+function validPath(n: number, edges: number[][], source: number, destination: number): boolean {
+    const union = new UnionFind(n);
+
+    edges.forEach(edge => union.union(edge[0], edge[1]));
+    const root1 = union.find(source);
+    const root2 = union.find(destination);
+    return root1 === root2;
 };

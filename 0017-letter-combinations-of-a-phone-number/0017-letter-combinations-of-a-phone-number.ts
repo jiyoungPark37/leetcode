@@ -1,28 +1,27 @@
+const DIGITS = {
+    2: 'abc',
+    3: 'def',
+    4: 'ghi',
+    5: 'jkl',
+    6: 'mno',
+    7: 'pqrs',
+    8: 'tuv',
+    9: 'wxyz',
+}
 function letterCombinations(digits: string): string[] {
-    if(digits.length <= 0) return [];
-
     const answer = [];
-    const phoneNumber = {
-        '2': 'abc',
-        '3': 'def',
-        '4': 'ghi',
-        '5': 'jkl',
-        '6': 'mno',
-        '7': 'pqrs',
-        '8': 'tuv',
-        '9': 'wxyz',
-    };
-    const dfs = (curDigit: string, i: number) => {
-        if(curDigit.length === digits.length) {
-            answer.push(curDigit);
+    const dfs = (idx, str) => {
+        if(idx >= digits.length) {
+            answer.push(str.join(''));
             return;
         }
-
-        for(const char of phoneNumber[digits[i]]) {
-            dfs(curDigit + char, i + 1);
+        const cur = DIGITS[digits[idx]];
+        for(const char of cur) {
+            str.push(char);
+            dfs(idx+1, str);
+            str.pop();
         }
-    };
-
-    dfs('', 0);
+    }
+    dfs(0,[]);
     return answer;
 };

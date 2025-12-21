@@ -1,18 +1,18 @@
 function wordPattern(pattern: string, s: string): boolean {
     const map = new Map();
     const arr = s.trim().split(/\s+/);
-    const wordSet = new Set();
+    const set = new Set();
     if(pattern.length !== arr.length) return false;
 
-    for(let i = 0; i < pattern.length; i++) {
+    for(let i = 0; i < arr.length; i++) {
+        const ptrn = pattern[i];
         const word = arr[i];
-        const key = pattern[i];
-        if(map.has(key)) {
-            if(map.get(key) !== word) return false;
+        if(map.has(ptrn)) {
+            if(map.get(ptrn) !== word) return false;
         } else {
-            if(wordSet.has(word)) return false;
-            map.set(key, word);
-            wordSet.add(word);
+            if(set.has(word)) return false;
+            set.add(word);
+            map.set(ptrn, word);
         }
     }
     return true;

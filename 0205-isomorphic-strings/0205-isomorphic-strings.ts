@@ -1,16 +1,14 @@
 function isIsomorphic(s: string, t: string): boolean {
     if(s.length !== t.length) return false;
-
     const map = new Map();
-    const taken = new Set();
+    const set = new Set();
     for(let i = 0; i < s.length; i++) {
-        if(!map.has(s[i])) {
-            if(!taken.has(t[i])) {
-                map.set(s[i], t[i]);
-                taken.add(t[i]);
-            } else return false;
-        } else {
+        if(map.has(s[i])) {
             if(map.get(s[i]) !== t[i]) return false;
+        } else {
+            if(set.has(t[i])) return false;
+            map.set(s[i], t[i]);
+            set.add(t[i]);
         }
     }
     return true;

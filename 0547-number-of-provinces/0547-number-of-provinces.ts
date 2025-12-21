@@ -1,32 +1,26 @@
 function findCircleNum(isConnected: number[][]): number {
-    // 1-7
-    // 1<->4, 1<->3 2<->3 5<->6 7
-    // [1,0,1,1,0,0,0], [0,1,1,0,0,0,0],[1,1,1,0,0,0,0], [1,0,0,1,0,0,0],[0,0,0,0,1,1,0]
-    // [0,0,0,0,1,1,0],[0,0,0,0,0,0,1]
-    // [1,2,3,4,5,6,7] 
-    // [1,1,1,1,5,5,7]
-    const len = isConnected.length;
-    const parentIdxArr = Array.from({length: len}, (_, idx) => idx);
-    let count = len;
-    
-    const find = (idx) => {
-        if(parentIdxArr[idx] === idx) return idx;
-        return parentIdxArr[idx] = find(parentIdxArr[idx]);
-    } 
+    let answer = isConnected.length;
+    const arr = Array.from({length: answer}, (_, idx) => idx);
+
+    const find = (i) => {
+        if(arr[i] === i) return i;
+        return arr[i] = find(arr[i]);
+    }
     const union = (a,b) => {
         const rootA = find(a);
         const rootB = find(b);
 
         if(rootA !== rootB) {
-            parentIdxArr[rootA] = rootB;
-            count--;
+            answer-=1;
+            arr[rootA] = rootB;
         }
     }
-    for(let i = 0; i < len; i++) {
-        for(let j = i; j < len; j++) {
-            if(isConnected[i][j] === 1) union(i,j);
+    for(let i = 0; i < isConnected.length; i++) {
+        for(let j = 0; j < isConnected.length; j++) {
+            if(isConnected[i][j] === 1) {
+                union(i, j);
+            }
         }
     }
-    console.log(parentIdxArr, 'parentIdxArr')
-    return count;
+    return answer;
 };

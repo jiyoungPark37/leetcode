@@ -1,11 +1,11 @@
 function removeDuplicates(s: string, k: number): string {
     const stack = [];
 
-    for(const char of s) {
-        if(stack.length > 0 && stack[stack.length - 1][0] === char) {
-           stack[stack.length - 1][1] +=1;
-           if(stack[stack.length - 1][1] === k) stack.pop();
-        } else stack.push([char,1]);
+    for(let i = 0; i < s.length; i++) {
+        if(stack.length > 0 && stack[stack.length - 1][0] === s[i]) {
+            const [char, count] = stack.pop();
+            if(count + 1 !== k) stack.push([char, count + 1]);
+        } else stack.push([s[i], 1]);
     }
-   return stack.map(([a,b]) => a.repeat(b)).join('');
+    return stack.map(([char, count]) => char.repeat(count)).join('');
 };

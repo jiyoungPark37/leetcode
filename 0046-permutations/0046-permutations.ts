@@ -1,21 +1,17 @@
 function permute(nums: number[]): number[][] {
-    const answer = [];
     const check = Array(nums.length).fill(0);
-
-    const dfs = (arr: number[]) => {
-        if(arr.length === nums.length) {
-            answer.push(arr.slice());
+    const answer = [];
+    const dfs = (cur) => {
+        if(cur.length === nums.length) {
+            answer.push(cur.slice());
             return;
         }
-
         for(let i = 0; i < nums.length; i++) {
-            if(check[i] === 1) continue;
-
-            check[i] = 1;
-            arr.push(nums[i]);
-            dfs(arr);
-            arr.pop();
-            check[i] = 0;
+            if(check[i] === 0) {
+                check[i] = 1;
+                dfs([...cur, nums[i]]);
+                check[i] = 0;
+            }
         }
     }
     dfs([]);

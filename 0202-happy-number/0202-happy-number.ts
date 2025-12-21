@@ -1,16 +1,12 @@
 function isHappy(n: number): boolean {
     const set = new Set();
+    let trackingNum = n;
 
-    let cur = n;
-    while(!set.has(cur)) {
-        if(cur === 1) return true;
-        set.add(cur);
-        cur = String(cur).split('').reduce((acc, cur) => {
-            console.log(acc, 'acc', cur, 'cur');
-            acc+=Number(cur) * Number(cur);
-            return acc;
-        }, 0);
+    while(true) {
+        trackingNum = String(trackingNum).split('').reduce((acc, cur) => Number(cur) * Number(cur) + acc, 0);
+        if(trackingNum === 1) return true;
+        if(set.has(trackingNum)) return false;
+        set.add(trackingNum);
     }
-    if(cur === 1) return true; 
     return false;
 };

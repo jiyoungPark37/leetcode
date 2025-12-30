@@ -1,12 +1,12 @@
 function longestCommonPrefix(strs: string[]): string {
     strs.sort((a,b) => a.length - b.length);
-    const std = strs[0];
-    let cur = '';
-    for(let i = 1; i <= std.length; i++){
-        const substr = std.substring(0,i);
-        const check = strs.every(str => str.startsWith(substr));
-        if(!check) return cur;
-        cur = substr;
+    let answer = '';
+    for(let i = 1; i <= strs[0].length; i++) {
+        const std = strs[0].slice(0, i);
+        for(let j = 1; j < strs.length; j++) {
+            if(!strs[j].startsWith(std)) return answer;
+        } 
+        answer = std;
     }
-    return cur;
+    return answer;
 };

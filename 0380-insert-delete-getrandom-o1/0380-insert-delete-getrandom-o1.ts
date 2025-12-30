@@ -1,26 +1,27 @@
 class RandomizedSet {
-    list;
+    private set: Set<number>;
     constructor() {
-        this.list = new Set();
+        this.set = new Set();
     }
 
     insert(val: number): boolean {
-        if(this.list.has(val)) return false;
-        this.list.add(val);
+        if(this.set.has(val)) return false;
+        this.set.add(val);
         return true;
     }
 
     remove(val: number): boolean {
-        if(!this.list.has(val)) return false;
-        this.list.delete(val);
-        return true;
+        if(this.set.has(val)) {
+            this.set.delete(val);
+            return true;
+        }
+        return false;
     }
 
     getRandom(): number {
-        let len = this.list.size;
-        const arr: number[] = Array.from(this.list);
-        const random = Math.floor(Math.random() * 10) % len;
-        return arr[random];
+        const arr = Array.from(this.set);
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        return arr[randomIndex];
     }
 }
 

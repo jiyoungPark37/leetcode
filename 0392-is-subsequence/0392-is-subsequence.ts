@@ -1,9 +1,9 @@
 function isSubsequence(s: string, t: string): boolean {
-    if(s.length >= t.length) return s === t;
-
-    let idx = 0;
+    if(s.length > t.length) return false;
+    let sIdx = 0;
     for(let i = 0; i < t.length; i++) {
-        if(s[idx] === t[i]) idx++;
+        if(t[i] === s[sIdx]) sIdx++;
     }
-    return idx === s.length;
+    if(sIdx === s.length) return true;
+    return false;
 };

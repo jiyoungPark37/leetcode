@@ -1,19 +1,16 @@
 function plusOne(digits: number[]): number[] {
-    const result = [];
-    let add = 1;
+    const answer = [];
+    digits[digits.length - 1]+=1;
 
+    let prev = 0;
     for(let i = digits.length - 1; i >= 0; i--) {
-        const cur = digits[i] + add;
-        console.log(cur, 'cur')
+        let cur = prev + digits[i];
         if(cur >= 10) {
-            const diff = cur - 10;
-            add = 1;
-            result.unshift(diff);
-        } else {
-            add = 0;
-            result.unshift(cur);
-        }
+            prev = 1;
+            cur-=10;
+        } else prev = 0;
+        answer.unshift(cur);
     }
-    if(add > 0) result.unshift(add);
-    return result;
+    if(prev > 0) answer.unshift(prev);
+    return answer;
 };

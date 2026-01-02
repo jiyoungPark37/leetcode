@@ -1,18 +1,13 @@
 function minPathSum(grid: number[][]): number {
-    const board = Array.from(Array(grid.length), () => Array(grid[0].length).fill(1e9));
-    board[0][0] = grid[0][0];
-    const iLen = grid.length;
-    const jLen = grid[0].length;
-
-    for(let i = 0; i < iLen; i++) {
-        for(let j = 0; j < jLen; j++) {
-            if(i === 0 && j === 0) board[i][j] = grid[i][j];
-            else if(i === 0) board[i][j] = grid[i][j] + board[i][j-1];
-            else if(j === 0) board[i][j] = grid[i][j] + board[i-1][j];
-            else {
-                board[i][j]= Math.min(board[i-1][j], board[i][j-1]) + grid[i][j];
-            }
+    const arr = grid.map(row => row.slice());
+    for(let i = 0; i < grid.length; i++) {
+        for(let j = 0; j < grid[0].length; j++) {
+            const left = i >= 1 ? arr[i-1][j] : Infinity;
+            const top = j >= 1 ? arr[i][j-1] : Infinity;
+            if(left === Infinity && top === Infinity) continue;
+            arr[i][j] = Math.min(left,top) + arr[i][j];
         }
     }
-    return board[iLen - 1][jLen - 1];
+    console.log(arr, 'arr')
+    return arr[arr.length - 1][arr[0].length - 1];
 };

@@ -14,19 +14,20 @@
 
 function rightSideView(root: TreeNode | null): number[] {
     const answer = [];
-    if(root === null) return answer;
-    let queue = [root];
 
-    while(queue.length) {
-        let len = queue.length;
-        let curMax = 0;
+    const queue = [root];
+    while(queue.length > 0) {
+        const len = queue.length;
+        let val;
         for(let i = 0; i < len; i++) {
-            const shifted = queue.shift();
-            if(shifted.left !== null) queue.push(shifted.left);
-            if(shifted.right !== null) queue.push(shifted.right);
-            if(i === len - 1) curMax = shifted.val;
+            const first = queue.shift();
+            if(first?.val != undefined) {
+                val = first.val;
+                if(first?.left) queue.push(first.left)
+                if(first?.right) queue.push(first.right)
+            }
         }
-        answer.push(curMax);
+        if(val != undefined) answer.push(val);
     }
     return answer;
 };

@@ -14,7 +14,6 @@
 
 function isValidBST(root: TreeNode | null, min = -Infinity, max = Infinity): boolean {
     if(root === null) return true;
-    const val = root.val;
-    if(val <= min || val >= max) return false;
-    return isValidBST(root.left, min, val) && isValidBST(root.right, val, max);
+    if(root.val <= min || root.val >= max) return false;
+    return isValidBST(root?.left, min, root.val) && isValidBST(root?.right, root.val, max);
 };

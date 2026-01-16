@@ -3,23 +3,22 @@ function threeSum(nums: number[]): number[][] {
     nums.sort((a,b) => a - b);
 
     for(let i = 0; i < nums.length - 2; i++) {
-        if(i > 0 && nums[i] === nums[i-1]) continue;
-        // if the smallest value is bigger than 0, there is no chance that the sum is 0
+        if(nums[i] === nums[i-1]) continue;
         if(nums[i] > 0) break;
-
-        let start = i + 1;
-        let end = nums.length - 1;
-        while(start<end) {
-            const sum = nums[start] + nums[end] + nums[i];
+        let left = i + 1;
+        let right = nums.length - 1;
+        while(left < right) {
+            const sum = nums[left] + nums[right] + nums[i];
             if(sum === 0) {
-                 answer.push([nums[i], nums[start], nums[end]]);
-                 while(nums[start] === nums[start+1] && start < end) start++;
-                 while(start<end && nums[end] === nums[end - 1]) end--;
-                start++;
-                end--;
+                answer.push([nums[left] , nums[right] , nums[i]])
+                while(left < right && nums[left] === nums[left+1]) left++;
+                while(left<right && nums[right] === nums[right-1])right--;
+                left++;
+                right--;
+            } else if(sum > 0) {
+                right--;
             } else {
-                if(sum > 0) end-=1;
-                else start+=1;
+                left++;
             }
         }
     }

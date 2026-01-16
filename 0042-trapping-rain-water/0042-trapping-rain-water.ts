@@ -1,26 +1,20 @@
 function trap(height: number[]): number {
     let left = 0;
     let right = height.length - 1;
-    let max = 0;
     let maxLeft = 0;
     let maxRight = 0;
+    let answer = 0;
+
     while(left<right) {
-        // console.log(left, 'left', right, 'right', maxLeft, 'max', maxRight, 'max', max)
         if(height[left] < height[right]) {
-            if(maxLeft < height[left]) {
-                maxLeft = height[left];
-            } else {
-                max+=maxLeft-height[left];
-            }
+            if(maxLeft < height[left]) maxLeft = height[left];
+            else answer+=maxLeft-height[left];
             left++;
         } else {
-            if(maxRight < height[right]) {
-                maxRight = height[right];
-            } else {
-                max+=maxRight-height[right];
-            }
+            if(maxRight < height[right]) maxRight = height[right];
+            else answer+=maxRight-height[right];
             right--;
         }
     }
-    return max;
+    return answer;
 };

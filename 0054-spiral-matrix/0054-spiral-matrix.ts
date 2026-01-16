@@ -1,26 +1,28 @@
 function spiralOrder(matrix: number[][]): number[] {
+    const dir = [[0,1],[1,0],[-1,0],[0,-1]];
+    let idx = 0;
+    let x = 0;
+    let y = 0;
+    let count = 0;
     const n = matrix.length;
     const m = matrix[0].length;
-    let colIdx = 0;
-    let rowIdx = 0;
-    let distIdx = 0;
-    const dist = [[0,1],[1,0],[-1,0],[0,-1]];
+    const hasVisited = 999;
     const answer = [];
-    while(answer.length < m * n) {
-        console.log(colIdx, rowIdx, 'check', answer, 'answer')
-        if(matrix[colIdx][rowIdx] !== Infinity) {
-            answer.push(matrix[colIdx][rowIdx]);
-            matrix[colIdx][rowIdx] = Infinity;
+
+    while(count < n * m) {
+        console.log(x,y)
+        if(matrix[x][y] !== hasVisited) {
+            answer.push(matrix[x][y]);
+            matrix[x][y] = hasVisited;
+            count++;
         }
 
-        const nC = colIdx + dist[distIdx][0];
-        const nR = rowIdx + dist[distIdx][1];
-        if(nC < 0 || nR < 0 || nC >= n || nR >= m || matrix[nC][nR] === Infinity) {
-            distIdx = (distIdx+1)%4;
-            continue;
-        }
-        colIdx = nC;
-        rowIdx = nR;
+        const nx = x + dir[idx][0];
+        const ny = y + dir[idx][1];
+        if(nx >= 0 && ny >= 0 && nx < n && ny < m && matrix[nx][ny] !== hasVisited) {
+            x = nx;
+            y = ny;
+        } else idx = (idx+1) % 4;
     }
     return answer;
 };
